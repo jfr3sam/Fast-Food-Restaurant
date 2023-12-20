@@ -1,0 +1,177 @@
+
+<!-------------CONTENT--------------->
+{%extends "base.njk"%}
+{%block content%}
+
+    <!----------------Advertisment Section---------------------------->
+    <header>    
+        <div class="top">
+            <div id="part-time">
+                <h1 class="asides-magin">Party Time</h1>
+                <div class="container" id="yellow-shape">
+                    <p>Buy any 2 burgers<br>and get 1.5L pepsi<br>free</p>
+                </div>
+                <form action="/sales/order/" method="post">
+                    <button class="asides-magin orderButton btn-yellow" type="submit" name="OrderNow">
+                            <a>Order Now</a>
+                        </button>
+                    <input type="hidden" name="meals" value="{{meals_in_cart}}">
+                    <input type="hidden" name="total_price" value="{{total}}">
+                </form>
+            </div>
+        </div>
+    </header>
+    <!--------------------Recent Bought------------------------------->
+    {%if show_recent_bought%}
+    <section id="recent_bought" class="asides-magin">
+
+        <div class="gallery-part1">
+            <h2>Your Recent Bought Prodects</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+            {%for meal in meals_recent_bought %}
+                <div class="card col-lg-3 col-md-4">
+                    <div class="card-link" onclick="location.href='detail/{{meal.id}}'">
+                        <img class="img-fluid" src="projectImages\{{meal.image}}" alt="{{meal.title}}">
+                        <p class="rate">
+                            &#11088;{{meal.rating}} rating
+                        </p>
+                        <p><strong class="orderName">{{meal.title}}</strong></p>
+                        <p class="rate">{{meal.description}}</p>
+                        <p>
+                            <form action="/sales/cart" method="get">
+                                <input type="hidden" name="back" value="/#recent_bought"/>                                
+                                <button class="add-to-cart white" name="id" id="{{meal.id}}"
+                                onclick="updateCartOne(this.id); event.stopPropagation()" value="{{meal.id}}">
+                                add to cart
+                                </button>
+                            </form>
+                            <span class="price">{{meal.price}} SAR</span>
+                        </p>
+                    </div>
+                </div>
+            {%endfor%}
+            </div>
+        </div>
+    </section>
+    {%endif%}
+    <!------------------- Menu Section ----------------------------------------->
+    <section id="menu">
+        <div id="menu-list" class="sides-magin">
+            <h2>Want To Eat</h2>
+            <p>try our most delicious food and usually take minutes to deliver</p>
+
+            <a href="">pizza</a>
+            <a href="">fast food</a>
+            <a href="">cupcake</a>
+            <a href="">sandwich</a>
+            <a href="">spaghetti</a>
+            <a href="">burger</a>
+        </div>
+
+        <div class="container-fluid">
+            <div class="deliver-man row">
+                <img class="col-lg-6 img-fluid" src="projectImages\delivery.png" alt="delivery man with pizza">
+                <div class="col-lg-6">
+                    <div class="red-shape">
+                        <h2>We guarantee 30 minutes delivery</h2>
+                    </div>
+                    <p class="late-delivery">if you're having a meeting. working late at night and need an extra push</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-------------------- Gallery Section ------------------------------------------->
+    <section id="gallery" class="asides-magin">
+
+        <div class="gallery-part1">
+            <h2>Our Most Popular Recipes</h2>
+            <p>try our most delicious food and usually take minutes to deliver</p>
+        </div>
+
+        <div class="container">
+            <div class="row">
+            {%for meal in meals %}
+                <div class="card col-lg-3 col-md-4">
+                    <div class="card-link" onclick="location.href='detail/{{meal.id}}'">
+                        <img class="img-fluid" src="projectImages\{{meal.image}}" alt="{{meal.title}}">
+                        <p class="rate">
+                            &#11088;{{meal.rating}} rating
+                        </p>
+                        <p><strong class="orderName">{{meal.title}}</strong></p>
+                        <p class="rate">{{meal.description}}</p>
+                        <p>
+                            <form action="/sales/cart" method="get">
+                                <input type="hidden" name="back" value="/#gallery"/>                                
+                                <button class="add-to-cart white" name="id" id="{{meal.id}}"
+                                onclick="updateCartOne(this.id); event.stopPropagation()" value="{{meal.id}}">
+                                add to cart
+                                </button>
+                            </form>
+                            <span class="price">{{meal.price}} SAR</span>
+                        </p>
+                    </div>
+                </div>
+            {%endfor%}
+            </div>
+        </div>
+    </section>
+
+
+    <!-------------------- testimonials Section ----------------------------------->
+    <section id="testimonials" class="asides-magin">
+        <div class="test-title">
+            <h2>Client Testimonials</h2>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="container">
+                    <div class="carousel-item active container">
+                        <div class="row">
+                            <img class="col-lg-6" src="projectImages\man-eating-burger.png" class="d-block w-100" alt="...">
+                            <div class="col-lg-6 d-flex flex-wrap align-content-center">
+                                Lorem ipsum dolor sit am et consectetur adipisicing elit. Neque ullam deserunt laborum, laboriosam veritatis quibusdam blanditiis dolor exercitationem velit commodi quae assumenda incidunt voluptas. Corporis ex nulla repellendus ullam nihil!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item container-fluid">
+                        <div class="row">
+                            <img class="col-lg-6" src="projectImages\man-eating-burger.png" class="d-block w-100" alt="...">
+                            <div class="col-lg-6 d-flex flex-wrap align-content-center">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ullam deserunt laborum, laboriosam veritatis quibusdam blanditiis dolor exercitationem velit commodi quae assumenda incidunt voluptas. Corporis ex nulla repellendus ullam nihil!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item container">
+                        <div class="row">
+                            <img class="col-lg-6" src="projectImages\man-eating-burger.png" class="d-block w-100" alt="...">
+                            <div class="col-lg-6 d-flex flex-wrap align-content-center">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ullam deserunt laborum, laboriosam veritatis quibusdam blanditiis dolor exercitationem velit commodi quae assumenda incidunt voluptas. Corporis ex nulla repellendus ullam nihil!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <br>
+    </section>
+
+
+{%endblock%}
